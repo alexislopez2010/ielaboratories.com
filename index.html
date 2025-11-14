@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>IE Laboratories | Intelligent Engineering Labs</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="IE Laboratories – applied research, data-driven experimentation, and intelligent engineering for modern organizations." />
+
+  <style>
+    :root {
+      --bg: #050816;
+      --bg-alt: #0b1020;
+      --accent: #4ade80;
+      --accent-soft: rgba(74, 222, 128, 0.08);
+      --text: #f9fafb;
+      --muted: #9ca3af;
+      --border: #1f2937;
+      --card-bg: #0b1120;
+      --danger: #f97373;
+      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: radial-gradient(circle at top, #111827 0, #020617 40%, #020617 100%);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    /* Layout */
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid rgba(31, 41, 55, 0.7);
+      backdrop-filter: blur(16px);
+      background: linear-gradient(to bottom, rgba(2,6,23,0.95), rgba(2,6,23,0.7));
+    }
+
+    .nav {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0.75rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .brand-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.4);
+      background: radial-gradient(circle at 25% 0, #22c55e, #0f172a);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #ecfeff;
+    }
+
+    .brand-text-title {
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .brand-text-subtitle {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+      font-size: 0.9rem;
+    }
+
+    .nav-links a {
+      position: relative;
+      color: var(--muted);
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -0.35rem;
+      width: 0;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #22c55e, #a3e635);
+      transition: width 0.18s ease-out;
+    }
+
+    .nav-links a:hover {
+      color: #e5e7eb;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-cta {
+      padding: 0.5rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid rgba(74, 222, 128, 0.55);
+      background: radial-gradient(circle at top left, rgba(34,197,94,0.18), rgba(15,23,42,0.9));
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .nav-cta span {
+      font-size: 0.9em;
+    }
+
+    .nav-cta-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34,197,94,0.25);
+    }
+
+    main {
+      flex: 1;
+    }
+
+    .section {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 3.5rem 1.25rem;
+    }
+
+    /* Hero */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.1fr);
+      gap: 3rem;
+      align-items: center;
+      padding-top: 3.5rem;
+      padding-bottom: 2.75rem;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.15rem 0.65rem 0.15rem 0.25rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.6);
+      background: radial-gradient(circle at top left, rgba(148,163,184,0.28), rgba(15,23,42,0.9));
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: #e5e7eb;
+      margin-bottom: 1.25rem;
+    }
+
+    .eyebrow-pill {
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+      background: rgba(15,23,42,0.8);
+      border: 1px solid rgba(34,197,94,0.7);
+      font-size: 0.7rem;
+      color: #bbf7d0;
+    }
+
+    .hero-title {
+      font-size: clamp(2.3rem, 4vw, 3.1rem);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-title span {
+      background: linear-gradient(120deg, #22c55e, #a3e635);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 0.98rem;
+      color: var(--muted);
+      max-width: 34rem;
+      margin-bottom: 1.7rem;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.8rem;
+      font-size: 0.75rem;
+    }
+
+    .hero-badge {
+      padding: 0.35rem 0.65rem;
+      border-radius: 999px;
+      border: 1px solid rgba(55,65,81,0.8);
+      background: rgba(15,23,42,0.9);
+      color: #d1d5db;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .hero-badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #22c55e;
+    }
+
+    .hero-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      align-items: center;
+      margin-bottom: 1.2rem;
+    }
+
+    .btn-primary,
+    .btn-ghost {
+      border-radius: 999px;
+      padding: 0.75rem 1.3rem;
+      font-size: 0.9rem;
+      border: 1px solid transparent;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      cursor: pointer;
+      background: none;
+      color: var(--text);
+    }
+
+    .btn-primary {
+      border-color: rgba(74, 222, 128, 0.8);
+      background: radial-gradient(circle at top left, rgba(74,222,128,0.3), rgba(5,46,22,1));
+      font-weight: 500;
+    }
+
+    .btn-primary:hover {
+      border-color: rgba(190, 242, 100, 0.9);
+      box-shadow: 0 18px 35px rgba(21, 128, 61, 0.3);
+      transform: translateY(-1px);
+    }
+
+    .btn-ghost {
+      border-color: rgba(75,85,99,0.9);
+      background: rgba(15,23,42,0.85);
+      color: #e5e7eb;
+    }
+
+    .btn-ghost:hover {
+      border-color: rgba(156,163,175,1);
+      background: rgba(17,24,39,0.95);
+    }
+
+    .hero-footnote {
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+
+    .hero-right {
+      position: relative;
+    }
+
+    .hero-card {
+      border-radius: 1.25rem;
+      border: 1px solid rgba(55,65,81,0.9);
+      background: radial-gradient(circle at top, #111827, #020617);
+      padding: 1.3rem 1.2rem;
+      box-shadow: 0 20px 50px rgba(15,23,42,0.9);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      font-size: 0.8rem;
+    }
+
+    .hero-tag {
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
+      background: rgba(15,23,42,0.9);
+      border: 1px solid rgba(148,163,184,0.6);
+      color: #e5e7eb;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .hero-tag-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #22c55e, #bbf7d0);
+    }
+
+    .hero-card-meta {
+      text-align: right;
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+
+    .hero-metric-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 1.1rem;
+      font-size: 0.8rem;
+    }
+
+    .metric-card {
+      padding: 0.65rem 0.55rem;
+      border-radius: 0.85rem;
+      border: 1px solid rgba(55,65,81,0.9);
+      background: radial-gradient(circle at top left, rgba(15,23,42,0.95), rgba(15,23,42,0.8));
+    }
+
+    .metric-label {
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-bottom: 0.25rem;
+    }
+
+    .metric-value {
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .metric-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.67rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      border: 1px solid rgba(34,197,94,0.6);
+      color: #bbf7d0;
+      margin-top: 0.25rem;
+    }
+
+    .metric-pill-badge {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #22c55e;
+    }
+
+    .hero-chart {
+      margin-top: 0.7rem;
+      border-radius: 0.9rem;
+      border: 1px solid rgba(31,41,55,0.9);
+      background: radial-gradient(circle at top, rgba(34,197,94,0.08), rgba(15,23,42,1));
+      padding: 0.75rem 0.8rem;
+      font-size: 0.75rem;
+    }
+
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.6rem;
+      color: #e5e7eb;
+    }
+
+    .chart-legend {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.65rem;
+      color: var(--muted);
+    }
+
+    .chart-legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 2px rgba(74,222,128,0.45);
+    }
+
+    .chart-bars {
+      display: flex;
+      gap: 0.45rem;
+      align-items: flex-end;
+      height: 80px;
+      margin-bottom: 0.45rem;
+    }
+
+    .chart-bar {
+      flex: 1;
+      border-radius: 999px;
+      background: linear-gradient(to top, rgba(34,197,94,0.1), rgba(34,197,94,0.95));
+      position: relative;
+      overflow: hidden;
+    }
+
+    .chart-bar::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 0, rgba(250,250,250,0.3), transparent 55%);
+      opacity: 0.12;
+    }
+
+    .chart-x-axis {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.65rem;
+      color: var(--muted);
+    }
+
+    .hero-floating-pill {
+      position: absolute;
+      inset: auto auto -16px -18px;
+      padding: 0.4rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(55,65,81,0.9);
+      background: rgba(15,23,42,0.98);
+      font-size: 0.72rem;
+      color: #e5e7eb;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      box-shadow: 0 18px 35px rgba(15,23,42,1);
+    }
+
+    .hero-floating-pill-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: #22c55e;
+    }
+
+    /* Section Titles */
+    .section-header {
+      max-width: 640px;
+      margin-bottom: 2rem;
+    }
+
+    .section-eyebrow {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-size: 1.35rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-subtitle {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    /* Services */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.2rem;
+    }
+
+    .card {
+      border-radius: 1rem;
+      border: 1px solid var(--border);
+      background: linear-gradient(145deg, rgba(15,23,42,0.96), rgba(15,23,42,0.8));
+      padding: 1rem 1rem;
+      font-size: 0.9rem;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.4rem;
+    }
+
+    .card-title {
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    .card-label-pill {
+      font-size: 0.7rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.7);
+      color: #e5e7eb;
+    }
+
+    .card-body {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .card-list {
+      margin-top: 0.4rem;
+      list-style: none;
+      padding-left: 0;
+      font-size: 0.8rem;
+    }
+
+    .card-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.35rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .card-list-dot {
+      margin-top: 0.25rem;
+      width: 4px;
+      height: 4px;
+      border-radius: 999px;
+      background: #6b7280;
+      flex-shrink: 0;
+    }
+
+    /* Use Cases */
+    .usecases {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      gap: 1.75rem;
+    }
+
+    .usecase-pill {
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(75,85,99,1);
+      font-size: 0.7rem;
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .usecase-pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #22c55e;
+    }
+
+    .usecase-list {
+      list-style: none;
+      padding-left: 0;
+      margin-top: 0.5rem;
+      font-size: 0.87rem;
+      color: var(--muted);
+    }
+
+    .usecase-list li {
+      margin-bottom: 0.4rem;
+    }
+
+    .usecase-highlight {
+      margin-top: 0.8rem;
+      padding: 0.7rem 0.75rem;
+      border-radius: 0.8rem;
+      border: 1px dashed rgba(55,65,81,0.9);
+      background: rgba(15,23,42,0.95);
+      font-size: 0.78rem;
+      color: #e5e7eb;
+    }
+
+    .usecase-panel {
+      border-radius: 1rem;
+      border: 1px solid rgba(55,65,81,0.9);
+      padding: 0.9rem 0.9rem;
+      background:
+        radial-gradient(circle at 0 0, rgba(34,197,94,0.24), transparent 55%),
+        radial-gradient(circle at 100% 100%, rgba(59,130,246,0.1), #020617);
+      font-size: 0.84rem;
+    }
+
+    .usecase-panel-header {
+      font-size: 0.8rem;
+      color: #bbf7d0;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      margin-bottom: 0.5rem;
+    }
+
+    .usecase-metrics {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.6rem;
+      margin-top: 0.7rem;
+    }
+
+    .usecase-metric {
+      font-size: 0.8rem;
+    }
+
+    .usecase-metric-label {
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+
+    .usecase-metric-value {
+      font-weight: 600;
+    }
+
+    /* Contact / CTA */
+    .cta {
+      border-radius: 1.25rem;
+      border: 1px solid rgba(31,41,55,1);
+      background:
+        radial-gradient(circle at 0 0, rgba(34,197,94,0.22), transparent 55%),
+        radial-gradient(circle at 100% 100%, rgba(59,130,246,0.12), #020617);
+      padding: 1.6rem 1.5rem;
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.1fr);
+      gap: 1.8rem;
+      align-items: center;
+      font-size: 0.9rem;
+    }
+
+    .cta-title {
+      font-size: 1.1rem;
+      margin-bottom: 0.45rem;
+    }
+
+    .cta-subtitle {
+      font-size: 0.85rem;
+      color: var(--muted);
+      max-width: 26rem;
+    }
+
+    .cta-note {
+      margin-top: 0.4rem;
+      font-size: 0.8rem;
+      color: #9ca3af;
+    }
+
+    .cta-form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .input {
+      flex: 1;
+      border-radius: 999px;
+      border: 1px solid rgba(55,65,81,1);
+      background: rgba(15,23,42,0.95);
+      padding: 0.65rem 0.9rem;
+      font-size: 0.85rem;
+      color: #e5e7eb;
+      outline: none;
+    }
+
+    .input::placeholder {
+      color: #6b7280;
+    }
+
+    .input:focus {
+      border-color: rgba(74,222,128,0.9);
+      box-shadow: 0 0 0 1px rgba(74,222,128,0.7);
+    }
+
+    .textarea {
+      border-radius: 0.9rem;
+      border: 1px solid rgba(55,65,81,1);
+      background: rgba(15,23,42,0.95);
+      padding: 0.7rem 0.9rem;
+      font-size: 0.85rem;
+      color: #e5e7eb;
+      outline: none;
+      resize: vertical;
+      min-height: 90px;
+    }
+
+    .textarea::placeholder {
+      color: #6b7280;
+    }
+
+    .textarea:focus {
+      border-color: rgba(74,222,128,0.9);
+      box-shadow: 0 0 0 1px rgba(74,222,128,0.7);
+    }
+
+    .cta-helper {
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-top: 0.15rem;
+    }
+
+    footer {
+      border-top: 1px solid rgba(31,41,55,0.9);
+      padding: 1.25rem 1.25rem 1.4rem;
+      margin-top: 1rem;
+    }
+
+    .footer-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.75rem;
+      color: #6b7280;
+      flex-wrap: wrap;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: #9ca3af;
+    }
+
+    .footer-links a:hover {
+      color: #e5e7eb;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero,
+      .cta,
+      .usecases {
+        grid-template-columns: minmax(0,1fr);
+      }
+
+      .hero {
+        padding-top: 2.5rem;
+      }
+
+      .hero-right {
+        order: -1;
+      }
+
+      .grid-3 {
+        grid-template-columns: minmax(0,1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav {
+        padding-inline: 1rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .section {
+        padding-inline: 1rem;
+        padding-block: 2.7rem;
+      }
+
+      .hero-title {
+        font-size: 2rem;
+      }
+
+      .cta {
+        padding: 1.2rem 1.1rem;
+      }
+
+      .form-row {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <div class="nav">
+      <div class="brand">
+        <div class="brand-logo">IE</div>
+        <div>
+          <div class="brand-text-title">IE Laboratories</div>
+          <div class="brand-text-subtitle">Intelligent Experimentation</div>
+        </div>
+      </div>
+      <nav class="nav-links">
+        <a href="#about">About</a>
+        <a href="#services">What We Do</a>
+        <a href="#usecases">Use Cases</a>
+        <a href="#contact">Contact</a>
+        <a href="#contact" class="nav-cta">
+          <span class="nav-cta-dot"></span>
+          <span>Book Discovery Call</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="section hero" id="top">
+      <div>
+        <div class="eyebrow">
+          <span class="eyebrow-pill">R&D • Data • Automation</span>
+          <span>IE Laboratories</span>
+        </div>
+        <h1 class="hero-title">
+          We turn complex ideas into
+          <span>tested, measurable experiments.</span>
+        </h1>
+        <p class="hero-subtitle">
+          IE Laboratories partners with teams that need more than slides:
+          we design, build, and instrument real-world experiments that prove
+          what works before you scale.
+        </p>
+
+        <div class="hero-badges">
+          <div class="hero-badge">
+            <span class="hero-badge-dot"></span>
+            Rapid experiment design
+          </div>
+          <div class="hero-badge">
+            <span class="hero-badge-dot"></span>
+            Data-driven decisions
+          </div>
+          <div class="hero-badge">
+            <span class="hero-badge-dot"></span>
+            Vendor-neutral, tech-agnostic
+          </div>
+        </div>
+
+        <div class="hero-cta-row">
+          <a href="#contact" class="btn-primary">
+            Start a project
+            <span>→</span>
+          </a>
+          <a href="#services" class="btn-ghost">
+            View capabilities
+          </a>
+        </div>
+        <div class="hero-footnote">
+          Typical engagement: scoped in days, first experiment live in weeks — not quarters.
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="hero-card" aria-label="Example experimental dashboard">
+          <div class="hero-card-header">
+            <div class="hero-tag">
+              <span class="hero-tag-dot"></span>
+              Active Experiment · IE-LAB-032
+            </div>
+            <div class="hero-card-meta">
+              <div>Runtime: 14 days</div>
+              <div>Live cohorts: 3</div>
+            </div>
+          </div>
+
+          <div class="hero-metric-grid">
+            <div class="metric-card">
+              <div class="metric-label">Hypothesis Confidence</div>
+              <div class="metric-value">92.4%</div>
+              <div class="metric-pill">
+                <span class="metric-pill-badge"></span>
+                Statistically significant
+              </div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-label">Signal-to-Noise</div>
+              <div class="metric-value">↑ 3.1x</div>
+              <div class="metric-pill">
+                <span class="metric-pill-badge"></span>
+                Clean instrumentation
+              </div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-label">Time to Insight</div>
+              <div class="metric-value">11 days</div>
+              <div class="metric-pill">
+                <span class="metric-pill-badge"></span>
+                From kickoff
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-chart">
+            <div class="chart-header">
+              <div>Outcome lift by cohort</div>
+              <div class="chart-legend">
+                <span class="chart-legend-dot"></span>
+                Variant vs control
+              </div>
+            </div>
+            <div class="chart-bars" aria-hidden="true">
+              <div class="chart-bar" style="height: 32%;"></div>
+              <div class="chart-bar" style="height: 58%;"></div>
+              <div class="chart-bar" style="height: 76%;"></div>
+              <div class="chart-bar" style="height: 44%;"></div>
+              <div class="chart-bar" style="height: 88%;"></div>
+            </div>
+            <div class="chart-x-axis">
+              <span>C-0</span><span>V-1</span><span>V-2</span><span>V-3</span><span>V-4</span>
+            </div>
+          </div>
+
+          <div class="hero-floating-pill">
+            <span class="hero-floating-pill-dot"></span>
+            <span>“Ship the experiment, not the guess.”</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section" id="about">
+      <div class="section-header">
+        <div class="section-eyebrow">About IE Laboratories</div>
+        <h2 class="section-title">A lab-first approach to technology decisions.</h2>
+        <p class="section-subtitle">
+          We blend engineering, experimentation, and analytics to help you validate strategy
+          in production-like environments. Less opinion, more evidence.
+        </p>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="section" id="services">
+      <div class="section-header">
+        <div class="section-eyebrow">What we do</div>
+        <h2 class="section-title">Core capabilities.</h2>
+        <p class="section-subtitle">
+          Engage IE Laboratories as your external experiment team, from hypothesis to report-ready results.
+        </p>
+      </div>
+
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Experiment Design &amp; Architecture</div>
+            <div class="card-label-pill">Phase 1</div>
+          </div>
+          <p class="card-body">
+            We translate ambiguous goals into clear, testable hypotheses and technical designs
+            that can actually be run in your environment.
+          </p>
+          <ul class="card-list">
+            <li>
+              <span class="card-list-dot"></span>
+              Hypothesis and success-metric definition
+            </li>
+            <li>
+              <span class="card-list-dot"></span>
+              Environment &amp; data-flow mapping
+            </li>
+            <li>
+              <span class="card-list-dot"></span>
+              Risk, constraint, and dependency analysis
+            </li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Build, Instrument, &amp; Run</div>
+            <div class="card-label-pill">Phase 2</div>
+          </div>
+          <p class="card-body">
+            We implement the experiment, wire up observability, and run controlled tests
+            against real-world traffic, workloads, or users.
+          </p>
+          <ul class="card-list">
+            <li>
+              <span class="card-list-dot"></span>
+              Implementation plans and runbooks
+            </li>
+            <li>
+              <span class="card-list-dot"></span>
+              Telemetry &amp; logging wired to your stack
+            </li>
+            <li>
+              <span class="card-list-dot"></span>
+              Guardrails to protect production
+            </li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Evidence &amp; Executive Narrative</div>
+            <div class="card-label-pill">Phase 3</div>
+          </div>
+          <p class="card-body">
+            We convert raw experimental data into decisions your leadership can trust—
+            with clear tradeoffs and recommendations.
+          </p>
+          <ul class="card-list">
+            <li>
+              <span class="card-list-dot"></span>
+              Statistical analysis and visualizations
+            </li>
+            <li>
+              <span class="card-list-dot"></span>
+              Scenario modeling and “what-if” views
+            </li>
+            <li>
+              <span class="card-list-dot"></span>
+              Board-ready summaries and artifacts
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- USE CASES -->
+    <section class="section" id="usecases">
+      <div class="section-header">
+        <div class="section-eyebrow">Where we fit</div>
+        <h2 class="section-title">Sample engagements.</h2>
+        <p class="section-subtitle">
+          IE Laboratories is intentionally vendor-neutral. We plug into your existing stack
+          and help you answer “should we do this?” with real data.
+        </p>
+      </div>
+
+      <div class="usecases">
+        <div>
+          <div class="usecase-pill">
+            <span class="usecase-pill-dot"></span>
+            For technology &amp; strategy leaders
+          </div>
+          <ul class="usecase-list">
+            <li><strong>Platform decisions:</strong> test candidate architectures before
+              committing multi-year budget.</li>
+            <li><strong>Security &amp; reliability:</strong> run focused experiments to quantify
+              risk reduction vs. complexity.</li>
+            <li><strong>Cost &amp; performance tradeoffs:</strong> compare options using
+              shared, transparent metrics.</li>
+            <li><strong>Change validation:</strong> validate high-impact changes with
+              controlled rollouts instead of blind cutovers.</li>
+          </ul>
+          <div class="usecase-highlight">
+            Unsure where to start? We can begin with a lightweight “Experiment Readiness
+            Assessment” to identify one high-value, low-risk candidate within your
+            current roadmap.
+          </div>
+        </div>
+
+        <div class="usecase-panel">
+          <div class="usecase-panel-header">Example | From intuition to insight</div>
+          <p>
+            A team suspects a new pattern will reduce incident volume without adding latency.
+            IE Laboratories designs an experiment, runs it against live-like traffic, and
+            publishes a short decision brief:
+          </p>
+          <div class="usecase-metrics">
+            <div class="usecase-metric">
+              <div class="usecase-metric-label">Incident reduction</div>
+              <div class="usecase-metric-value">−37%</div>
+            </div>
+            <div class="usecase-metric">
+              <div class="usecase-metric-label">Latency impact</div>
+              <div class="usecase-metric-value">+2.1 ms p95</div>
+            </div>
+            <div class="usecase-metric">
+              <div class="usecase-metric-label">Time to decision</div>
+              <div class="usecase-metric-value">3 weeks</div>
+            </div>
+            <div class="usecase-metric">
+              <div class="usecase-metric-label">Recommendation</div>
+              <div class="usecase-metric-value">Scale with guardrails</div>
+            </div>
+          </div>
+          <p style="margin-top:0.75rem; font-size:0.8rem; color:#d1d5db;">
+            Leadership gets what they actually need: a clear, evidence-backed “yes/no,
+            with constraints,” not another generic POV.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT / CTA -->
+    <section class="section" id="contact">
+      <div class="cta">
+        <div>
+          <div class="section-eyebrow">Next step</div>
+          <h2 class="cta-title">Book a 30-minute discovery session.</h2>
+          <p class="cta-subtitle">
+            Share a bit about your context and we’ll respond with either:
+            (1) a concrete experiment proposal, or (2) a clear explanation of why we’re not
+            the right fit — no generic sales pitch.
+          </p>
+          <p class="cta-note">
+            Prefer email? Reach out at <strong>contact@ielaboratories.com</strong>.
+            You’ll hear back from a human, not a bot.
+          </p>
+        </div>
+        <form class="cta-form">
+          <div class="form-row">
+            <input class="input" type="text" name="name" placeholder="Your name" />
+            <input class="input" type="email" name="email" placeholder="Work email" />
+          </div>
+          <input class="input" type="text" name="org" placeholder="Organization &amp; role" />
+          <textarea class="textarea" name="context" placeholder="Briefly describe what you’re trying to decide, validate, or de-risk."></textarea>
+          <button type="submit" class="btn-primary" style="justify-content:center; margin-top:0.1rem;">
+            Send request
+            <span>→</span>
+          </button>
+          <div class="cta-helper">
+            This form is not wired to a backend yet. Connect it to your email service or API
+            when you’re ready.
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div>© <span id="year"></span> IE Laboratories. All rights reserved.</div>
+      <div class="footer-links">
+        <a href="#top">Back to top</a>
+        <a href="#">Privacy</a>
+        <a href="#">Imprint</a>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script>
+  // Auto-update year in footer
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
